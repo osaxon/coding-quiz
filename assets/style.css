@@ -1,0 +1,4 @@
+.question-box{
+    display: flex;
+    flex-direction: column;
+}
