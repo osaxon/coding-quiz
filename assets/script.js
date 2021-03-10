@@ -1,4 +1,5 @@
 var timer = document.querySelector(".time")
+var titleEl = document.querySelector("body > div > header > h1");
 var startBtn = document.getElementById("start");
 var wrong = document.getElementById("wrong");
 var endMsg = document.querySelector(".end-message");
@@ -6,12 +7,13 @@ var question = document.querySelector(".question");
 var optionA = document.getElementById("a");
 var optionB = document.getElementById("b");
 var optionC = document.getElementById("c");
-var questionNumber = 0;
+var options = document.querySelector(".options")
 
+// Quiz questions stored as objects in an array
 var questions = [
     {
-        question: "question 1",
-        options: ["Is it this...","This...","Or this..."],
+        question: "What symbol is used to assign a value to a variable",
+        options: ["=","%","=="],
         answer: "a",
     },
     {
@@ -23,6 +25,13 @@ var questions = [
         question: "question 3"
     }
 ];
+
+var questionNumber = 0;
+let currentQuestion = questions[questionNumber];
+
+
+
+
 
 var score = 0;
 var timeLeft = 15;
@@ -55,10 +64,15 @@ function endQuiz() {
     }
 }
 
-function mainLoop(){
-    console.log("started")
+function setUp(){
+    startBtn.style.display = 'none';
+    titleEl.style.display = 'none';
+    options.style.display = 'flex';
     setTime()
-    var currentQuestion = questions[questionNumber];
+    mainLoop()
+}
+
+function mainLoop(){
     var currentOptionA = currentQuestion.options[0];
     var currentOptionB = currentQuestion.options[1];
     var currentOptionC = currentQuestion.options[2];
@@ -71,11 +85,22 @@ function mainLoop(){
 
 function correctAnswer() {
     console.log("correct");
-    // Q number + 1
-    // mainLoop
+    questionNumber++;
+    mainLoop();
+}
+
+function renderQuestion(questionNum){
+    
 }
 
 
 // event listeners
-startBtn.addEventListener("click", mainLoop)
-wrong.addEventListener("click", wrongAnswer)
+startBtn.addEventListener("click", setUp)
+
+options.addEventListener("click", function(event){
+    plAns = event.target.id;
+    console.log(plAns);
+    if(plAns == currentQuestion.answer){
+        correctAnswer()
+    }
+})

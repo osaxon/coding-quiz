@@ -1,20 +1,35 @@
-:root{
-    --border: 2px solid tomato;
+:root {
+    
 }
 
-header{
+header {
+    display: flex;
+    justify-content: space-between;
     border: var(--border);
 }
 
-.container{
-    border: var(--border);
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.question-box{
-    border:var(--border);
+.question-box {
     display: flex;
     flex-direction: column;
+}
+
+.options {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.option-btn {
+    background-color: aquamarine;
+    border: none;
+    border-radius: 3px;
+    height: 30px;
+    min-width: 200px;
+    text-align: left;
 }
