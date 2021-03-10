@@ -17,13 +17,15 @@ var questions = [
         answer: "a",
     },
     {
-        question: "question 2",
-        options: ["This", "that", "or this"],
+        question: "What function iterates through an array or list?",
+        options: ["if statement", "for loop", "magic"],
         answer: "b",
     },
     {
-        question: "question 3"
-    }
+        question: "What does OOP stand for?",
+        options: ["Object Oriented Programming","Objects Over People", "Olis Object Program"],
+        answer: "a",
+    },
 ];
 
 var questionNumber = 0;
@@ -42,10 +44,9 @@ function setTime() {
       timeLeft--;
       timer.textContent = timeLeft;
   
-      if(timeLeft === 0) {
+      if(timeLeft === 0 || questionNumber > questions.length) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
-        endQuiz();
       }
   
     }, 1000);
@@ -56,6 +57,7 @@ function setTime() {
   }
 
 function endQuiz() {
+    options.style.display = 'none';
     if(timeLeft > 0){
         endMsg.textContent = "Your score is " + timeLeft;
     } else {
@@ -76,21 +78,28 @@ function correctAnswer() {
     console.log("correct");
     questionNumber += 1;
     console.log(questionNumber)
-    renderQuestion();
+    if(questionNumber == questions.length){
+        endQuiz();
+    } else {
+        renderQuestion();
+    }
+    
 }
 
 function renderQuestion(){
     currentQuestion = questions[questionNumber];
-    currentOptionA = currentQuestion.options[0];
-    currentOptionB = currentQuestion.options[1];
-    currentOptionC = currentQuestion.options[2];
     questionEl.textContent = currentQuestion.question;
-    optionA.textContent = currentOptionA;
-    optionB.textContent = currentOptionB;
-    optionC.textContent = currentOptionC;
+    optionA.textContent = currentQuestion.options[0];
+    optionB.textContent = currentQuestion.options[1];
+    optionC.textContent = currentQuestion.options[2];
+    mainLoop();
 }
 
-
+function mainLoop(){
+    if(timeLeft == 0 || questionNumber == questions.length){
+        endQuiz();
+    }
+}
 
 
 
