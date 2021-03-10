@@ -3,7 +3,7 @@ var titleEl = document.querySelector("body > div > header > h1");
 var startBtn = document.getElementById("start");
 var wrong = document.getElementById("wrong");
 var endMsg = document.querySelector(".end-message");
-var question = document.querySelector(".question");
+var questionEl = document.querySelector(".question");
 var optionA = document.getElementById("a");
 var optionB = document.getElementById("b");
 var optionC = document.getElementById("c");
@@ -28,13 +28,13 @@ var questions = [
 
 var questionNumber = 0;
 let currentQuestion = questions[questionNumber];
-
-
-
+var currentOptionA = currentQuestion.options[0];
+var currentOptionB = currentQuestion.options[1];
+var currentOptionC = currentQuestion.options[2];
 
 
 var score = 0;
-var timeLeft = 15;
+var timeLeft = 100;
 
 function setTime() {
     timer.textContent = timeLeft;
@@ -53,7 +53,6 @@ function setTime() {
 
   function wrongAnswer() {
       timeLeft = timeLeft - 10;
-      // mainLoop
   }
 
 function endQuiz() {
@@ -68,39 +67,43 @@ function setUp(){
     startBtn.style.display = 'none';
     titleEl.style.display = 'none';
     options.style.display = 'flex';
-    setTime()
-    mainLoop()
+    setTime();
+    renderQuestion();
 }
 
-function mainLoop(){
-    var currentOptionA = currentQuestion.options[0];
-    var currentOptionB = currentQuestion.options[1];
-    var currentOptionC = currentQuestion.options[2];
-    question.textContent = currentQuestion.question;
-    optionA.textContent = currentOptionA;
-    optionB.textContent = currentOptionB;
-    optionC.textContent = currentOptionC;
-
-}
 
 function correctAnswer() {
     console.log("correct");
-    questionNumber++;
-    mainLoop();
+    questionNumber += 1;
+    console.log(questionNumber)
+    renderQuestion();
 }
 
-function renderQuestion(questionNum){
-    
+function renderQuestion(){
+    currentQuestion = questions[questionNumber];
+    currentOptionA = currentQuestion.options[0];
+    currentOptionB = currentQuestion.options[1];
+    currentOptionC = currentQuestion.options[2];
+    questionEl.textContent = currentQuestion.question;
+    optionA.textContent = currentOptionA;
+    optionB.textContent = currentOptionB;
+    optionC.textContent = currentOptionC;
 }
+
+
+
 
 
 // event listeners
 startBtn.addEventListener("click", setUp)
 
 options.addEventListener("click", function(event){
+    event.preventDefault()
     plAns = event.target.id;
     console.log(plAns);
-    if(plAns == currentQuestion.answer){
-        correctAnswer()
+    if(plAns === currentQuestion.answer){
+        correctAnswer();
+    } else {
+        wrongAnswer();
     }
 })
