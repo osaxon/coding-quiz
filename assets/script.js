@@ -1,16 +1,23 @@
-var timer = document.querySelector(".time")
-var titleEl = document.querySelector("body > div > header > h1");
-var startBtn = document.getElementById("start");
-var wrong = document.getElementById("wrong");
-var endMsg = document.querySelector(".end-message");
-var questionEl = document.querySelector(".question");
-var optionA = document.getElementById("a");
-var optionB = document.getElementById("b");
-var optionC = document.getElementById("c");
-var options = document.querySelector(".options")
+// DOM elements
+let timer = document.querySelector(".time")
+let titleEl = document.querySelector("body > div > header > h1");
+let startBtn = document.getElementById("start");
+let questionEl = document.querySelector(".question");
+let questionBoxEl = document.querySelector(".question-box");
+let optionA = document.getElementById("a");
+let optionB = document.getElementById("b");
+let optionC = document.getElementById("c");
+let options = document.querySelector(".options")
+let endGameMsgEl = document.querySelector(".end-game");
+// end of DOM elements
 
-// Quiz questions stored as objects in an array
-var questions = [
+
+/*  
+Quiz questions stored as objects in an array
+Options to each questions stored in an array as a property of the parent object
+Correct answer stored as a property 
+*/
+let questions = [
     {
         question: "What symbol is used to assign a value to a variable",
         options: ["=","%","=="],
@@ -28,19 +35,21 @@ var questions = [
     },
 ];
 
-var questionNumber = 0;
+
+let questionNumber = 0;
 let currentQuestion = questions[questionNumber];
-var currentOptionA = currentQuestion.options[0];
-var currentOptionB = currentQuestion.options[1];
-var currentOptionC = currentQuestion.options[2];
+let currentOptionA = currentQuestion.options[0];
+let currentOptionB = currentQuestion.options[1];
+let currentOptionC = currentQuestion.options[2];
 
 
-var score = 0;
-var timeLeft = 100;
+let score = 0;
+let timeLeft = 100;
 
 function setTime() {
+    console.log("Stage: setTime")
     timer.textContent = timeLeft;
-    var timerInterval = setInterval(function() {
+    let timerInterval = setInterval(function() {
       timeLeft--;
       timer.textContent = timeLeft;
   
@@ -53,19 +62,23 @@ function setTime() {
   }
 
   function wrongAnswer() {
-      timeLeft = timeLeft - 10;
+    
   }
 
 function endQuiz() {
+    console.log("Stage: endQuiz")
     options.style.display = 'none';
+    questionBoxEl.style.display = 'none';
     if(timeLeft > 0){
-        endMsg.textContent = "Your score is " + timeLeft;
+        score = timeLeft * 10;
+        endGameMsgEl.textContent = "Congratualtions on finishing the quiz! Your score is " + timeLeft;
     } else {
         endMsg.textContent = "Time's up you lose!!!"
     }
 }
 
 function setUp(){
+    console.log("Stage: setUp")
     startBtn.style.display = 'none';
     titleEl.style.display = 'none';
     options.style.display = 'flex';
@@ -75,29 +88,30 @@ function setUp(){
 
 
 function correctAnswer() {
-    console.log("correct");
-    questionNumber += 1;
-    console.log(questionNumber)
-    if(questionNumber == questions.length){
-        endQuiz();
-    } else {
-        renderQuestion();
-    }
+    
     
 }
 
 function renderQuestion(){
-    currentQuestion = questions[questionNumber];
-    questionEl.textContent = currentQuestion.question;
-    optionA.textContent = currentQuestion.options[0];
-    optionB.textContent = currentQuestion.options[1];
-    optionC.textContent = currentQuestion.options[2];
-    mainLoop();
+    console.log("Stage: renderQuestion")
+    if(questionNumber === questions.length){
+        endQuiz();
+    } else {
+        currentQuestion = questions[questionNumber]
+        questionEl.textContent = currentQuestion.question;
+        optionA.textContent = currentQuestion.options[0];
+        optionB.textContent = currentQuestion.options[1];
+        optionC.textContent = currentQuestion.options[2];
+    }
+
 }
 
 function mainLoop(){
+    console.log("Stage: mainLoop")
     if(timeLeft == 0 || questionNumber == questions.length){
         endQuiz();
+    } else {
+        renderQuestion();
     }
 }
 
@@ -111,8 +125,12 @@ options.addEventListener("click", function(event){
     plAns = event.target.id;
     console.log(plAns);
     if(plAns === currentQuestion.answer){
-        correctAnswer();
+        console.log("Stage: correctAnswer")
+        questionNumber += 1;
+        renderQuestion();
     } else {
-        wrongAnswer();
+        console.log("Stage: wrongAns")
+        timeLeft = timeLeft - 10;
+        renderQuestion();
     }
 })
