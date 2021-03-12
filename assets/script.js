@@ -81,6 +81,7 @@ function renderQuestion(){
     if(questionNumber === questions.length){
         endQuiz();
     } else {
+        titleEl.children().eq(1).text("Question " + (questionNumber + 1))
         currentQuestion = questions[questionNumber]
         questionEl.text(currentQuestion.question);
         optionA.textContent = currentQuestion.options[0];
