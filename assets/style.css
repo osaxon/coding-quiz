@@ -1,36 +1,81 @@
 :root {
-    
+    --bg-light: #f1faee;
+    --bg-dark: #1d3557;
+    --ac-red: #e63946;
+    --ac-blue: #a8dadc;
+    --blue: #457b9d;
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color:var(--bg-light);
 }
 
 header {
     display: flex;
     justify-content: space-between;
-    border: var(--border);
+    width: 100vw;
+    background-color: var(--bg-dark);
+}
+
+header > p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    padding: 2%;
+    color: var(--ac-blue);
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+    padding: 2%;
+    color: var(--ac-blue);
+}
+
+.row {
+    border: var(--ac-red) solid;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.col {
+    border: var(--ac-blue) solid;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    margin: 0;
+    padding: 0;
 }
 
 
 .container {
+    border: var(--ac-red) solid;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .question-box {
+    border: var(--ac-red) solid;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
 }
 
 .options {
+    border: var(--ac-red) solid;
     display: none;
-    flex-direction: column;
     gap: 2px;
 }
 
-.option-btn {
-    background-color: aquamarine;
+.btn {
     border: none;
     border-radius: 3px;
     height: 30px;
     min-width: 200px;
-    text-align: left;
 }
