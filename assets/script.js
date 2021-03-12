@@ -38,12 +38,14 @@ let questions = [
 
 let questionNumber = 0;
 let currentQuestion = questions[questionNumber];
-const highScores = [];
 
 
 let score = 0;
 let timeLeft = 100;
 
+function getSavedScores(){
+
+}
 
 function endQuiz() {
     console.log("Stage: endQuiz")
@@ -82,7 +84,6 @@ function setUp(){
 }
 
 
-
 function renderQuestion(){
     if(questionNumber === questions.length){
         endQuiz();
@@ -117,5 +118,6 @@ questionListEl.on("click", function(event){
 })
 
 submitBtn.on("click", function(event){
+    console.log(timeLeft.toString());
     console.log(nameEl.val());
 })
