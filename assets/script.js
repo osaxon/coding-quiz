@@ -1,13 +1,15 @@
 // DOM elements
-let timer = $(".time");
-let titleEl = $(".title")
-let startBtn = $(".start-btn");
-let questionEl = $(".question-text");
-let questionListEl = $(".question-list");
-let optionA = $("#a");
-let optionB = $("#b");
-let optionC = $("#c");
+const timer = $(".time");
+const titleEl = $(".title")
+const startBtn = $(".start-btn");
+const formEl = $(".submit-score");
+const nameEl = formEl.children().eq(0).children().eq(0);
+const submitBtn = formEl.children().eq(1).children().eq(0);
+const questionEl = $(".question-text");
+const questionListEl = $(".question-list");
+const storage = window.localStorage;
 // end of DOM elements
+
 
 
 /*  
@@ -34,13 +36,9 @@ let questions = [
 ];
 
 
-
-let gameWon = false;
 let questionNumber = 0;
 let currentQuestion = questions[questionNumber];
-let currentOptionA = currentQuestion.options[0];
-let currentOptionB = currentQuestion.options[1];
-let currentOptionC = currentQuestion.options[2];
+const highScores = [];
 
 
 let score = 0;
@@ -51,16 +49,22 @@ function endQuiz() {
     console.log("Stage: endQuiz")
     timer.hide();
     questionListEl.hide();
+    formEl.show();
     if(timeLeft > 0){
         titleEl.children().eq(1).text("Congratulations!!!")
-        titleEl.children().eq(2).text("You answered all questions correctly before the timer ran out. Your final score is " + timeLeft + ".")
+        titleEl.children().eq(2).text("Your final score is " + timeLeft + ".")
         score = timeLeft * 10;
     } else {
         return;
     }
+};
+
+function storePlayerScore(player, score){
+    storage.setItem("player", player);
 }
 
 function setUp(){
+    storage.setItem("highScores", JSON.stringify(highScores));
     startBtn.hide();
     titleEl.children().eq(0).hide();
     questionListEl.show();
@@ -85,10 +89,9 @@ function renderQuestion(){
     } else {
         titleEl.children().eq(1).text("Question " + (questionNumber + 1))
         currentQuestion = questions[questionNumber]
-        questionEl.text(currentQuestion.question);
-        optionA.text(currentQuestion.options[0]);
-        optionB.text(currentQuestion.options[1]);
-        optionC.text(currentQuestion.options[2]);
+        questionListEl.children().eq(0).text(currentQuestion.options[0]);
+        questionListEl.children().eq(1).text(currentQuestion.options[1]);
+        questionListEl.children().eq(2).text(currentQuestion.options[2]);
     };
 };
 
@@ -100,7 +103,8 @@ startBtn.on("click", setUp)
 startBtn.on("click", function(){timer.text(timeLeft + "s remaining");})
 
 questionListEl.on("click", function(event){
-    event.preventDefault()
+    event.preventDefault();
+    event.stopPropagation();
     plAns = event.target.id;
     activeBtn = $("#"+plAns);
     if(plAns === currentQuestion.answer){
@@ -110,4 +114,8 @@ questionListEl.on("click", function(event){
         timeLeft = timeLeft - 10;
         renderQuestion();
     }
+})
+
+submitBtn.on("click", function(event){
+    console.log(nameEl.val());
 })
