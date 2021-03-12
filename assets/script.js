@@ -4,9 +4,9 @@ let titleEl = $(".title")
 let startBtn = $(".start-btn");
 let questionEl = $(".question-text");
 let questionListEl = $(".question-list");
-let optionA = $("a");
-let optionB = $("b");
-let optionC = $("c");
+let optionA = $("#a");
+let optionB = $("#b");
+let optionC = $("#c");
 // end of DOM elements
 
 
@@ -49,8 +49,11 @@ let timeLeft = 100;
 
 function endQuiz() {
     console.log("Stage: endQuiz")
+    timer.hide();
     questionListEl.hide();
     if(timeLeft > 0){
+        titleEl.children().eq(1).text("Congratulations!!!")
+        titleEl.children().eq(2).text("You answered all questions correctly before the timer ran out. Your final score is " + timeLeft + ".")
         score = timeLeft * 10;
     } else {
         return;
@@ -58,8 +61,8 @@ function endQuiz() {
 }
 
 function setUp(){
-    console.log("Stage: setUp")
     startBtn.hide();
+    titleEl.children().eq(0).hide();
     questionListEl.show();
     let timerInterval = setInterval(function() {
       timeLeft--;
@@ -68,7 +71,6 @@ function setUp(){
       if(timeLeft === 0 || questionNumber == questions.length) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
-        timer.hide();
       }
   
     }, 1000);
@@ -84,9 +86,9 @@ function renderQuestion(){
         titleEl.children().eq(1).text("Question " + (questionNumber + 1))
         currentQuestion = questions[questionNumber]
         questionEl.text(currentQuestion.question);
-        optionA.textContent = currentQuestion.options[0];
-        optionB.textContent = currentQuestion.options[1];
-        optionC.textContent = currentQuestion.options[2];
+        optionA.text(currentQuestion.options[0]);
+        optionB.text(currentQuestion.options[1]);
+        optionC.text(currentQuestion.options[2]);
     };
 };
 
@@ -96,11 +98,11 @@ function renderQuestion(){
 
 startBtn.on("click", setUp)
 startBtn.on("click", function(){timer.text(timeLeft + "s remaining");})
-// startBtn.addEventListener("click", setUp)
 
 questionListEl.on("click", function(event){
     event.preventDefault()
     plAns = event.target.id;
+    activeBtn = $("#"+plAns);
     if(plAns === currentQuestion.answer){
         questionNumber += 1;
         renderQuestion();
