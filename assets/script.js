@@ -2,7 +2,7 @@
 let timer = $(".time");
 let titleEl = $(".title")
 let startBtn = $(".start-btn");
-let questionEl = $(".question");
+let questionEl = $(".question-text");
 let questionListEl = $(".question-list");
 let optionA = $("a");
 let optionB = $("b");
@@ -59,9 +59,8 @@ function endQuiz() {
 
 function setUp(){
     console.log("Stage: setUp")
-    startBtn.addClass("disabled");
+    startBtn.hide();
     questionListEl.show();
-    timer.text("s remaining");
     let timerInterval = setInterval(function() {
       timeLeft--;
       timer.text(timeLeft + "s remaining")
@@ -83,7 +82,7 @@ function renderQuestion(){
         endQuiz();
     } else {
         currentQuestion = questions[questionNumber]
-        questionEl.textContent = currentQuestion.question;
+        questionEl.text(currentQuestion.question);
         optionA.textContent = currentQuestion.options[0];
         optionB.textContent = currentQuestion.options[1];
         optionC.textContent = currentQuestion.options[2];
@@ -95,6 +94,7 @@ function renderQuestion(){
 // event listeners
 
 startBtn.on("click", setUp)
+startBtn.on("click", function(){timer.text(timeLeft + "s remaining");})
 // startBtn.addEventListener("click", setUp)
 
 questionListEl.on("click", function(event){
