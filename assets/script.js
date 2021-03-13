@@ -20,17 +20,17 @@ Correct answer stored as a property
 let questions = [
     {
         question: "What symbol is used to assign a value to a variable",
-        options: ["=","%","=="],
+        options: ["=","%","==",":-)"],
         answer: "a",
     },
     {
-        question: "What function iterates through an array or list?",
-        options: ["if statement", "for loop", "magic"],
+        question: "What function can be used to iterate through an array or list?",
+        options: ["if statement","for loop","magic","a function room"],
         answer: "b",
     },
     {
         question: "What does OOP stand for?",
-        options: ["Object Oriented Programming","Objects Over People", "Olis Object Program"],
+        options: ["Object Oriented Programming","Objects On Platform", "On One Pal","Ok Object Programming"],
         answer: "a",
     },
 ];
@@ -39,16 +39,12 @@ let questions = [
 let questionNumber = 0;
 let currentQuestion = questions[questionNumber];
 
+let highScores = JSON.parse(storage.getItem("highScores")) || [];
 
-let score = 0;
+
 let timeLeft = 100;
 
-function getSavedScores(){
-
-}
-
 function endQuiz() {
-    console.log("Stage: endQuiz")
     timer.hide();
     questionListEl.hide();
     formEl.show();
@@ -57,16 +53,22 @@ function endQuiz() {
         titleEl.children().eq(2).text("Your final score is " + timeLeft + ".")
         score = timeLeft * 10;
     } else {
-        return;
+        titleEl.children().eq(1).text("Unlucky!!!")
+        titleEl.children().eq(2).text("You ran out of time. Want to try again?");
     }
 };
 
-function storePlayerScore(player, score){
-    storage.setItem("player", player);
+function submitScore(){
+    let playerScore = {
+        name: nameEl.val(),
+        score: timeLeft.toString(),
+    };
+    highScores.push(playerScore);
+    console.log(highScores);
+    storage.setItem("highScores",JSON.stringify(highScores));
 }
 
 function setUp(){
-    storage.setItem("highScores", JSON.stringify(highScores));
     startBtn.hide();
     titleEl.children().eq(0).hide();
     questionListEl.show();
@@ -117,7 +119,4 @@ questionListEl.on("click", function(event){
     }
 })
 
-submitBtn.on("click", function(event){
-    console.log(timeLeft.toString());
-    console.log(nameEl.val());
-})
+submitBtn.on("click",submitScore);
