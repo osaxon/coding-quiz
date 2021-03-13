@@ -92,6 +92,7 @@ function renderQuestion(){
     } else {
         titleEl.children().eq(1).text("Question " + (questionNumber + 1))
         currentQuestion = questions[questionNumber]
+        questionEl.text(currentQuestion.question);
         questionListEl.children().eq(0).text(currentQuestion.options[0]);
         questionListEl.children().eq(1).text(currentQuestion.options[1]);
         questionListEl.children().eq(2).text(currentQuestion.options[2]);
@@ -114,7 +115,8 @@ questionListEl.on("click", function(event){
         questionNumber += 1;
         renderQuestion();
     } else {
-        timeLeft = timeLeft - 10;
+        timeLeft -= 10;
+        timer.text((timeLeft) + "s remaining")
         renderQuestion();
     }
 })
