@@ -13,6 +13,18 @@ The main feature of the quiz is for players to answer a series of questions with
 * A wrong answer decucts 10s from the remaining time
 * At the end of the quiz the player submits their name and score and views top scores in a table
 
+### Main page
+<img src="./assets/img/Main.jpg">
+
+### Question with multiple choice and timer
+<img src="./assets/img/Question.jpg">
+
+### Form to submit name and score
+<img src="./assets/img/Submit-form.jpg">
+
+### Table with ranked high scores
+<img src="./assets/img/High-scores.jpg">
+
 ## Development
 
 The components of the quiz have been built using the following:
