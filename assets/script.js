@@ -49,7 +49,7 @@ let questions = [
 let questionNumber = 0;
 let currentQuestion = questions[questionNumber];
 let highScores = JSON.parse(storage.getItem("highScores")) || [];
-let timeLeft = 100;
+let timeLeft = 75;
 
 function endQuiz() {
     timer.hide();
@@ -66,10 +66,8 @@ function endQuiz() {
 };
 
 function renderScores() {
-    console.log("renderScores");
     let sortedArr = highScores.sort((a, b) => (a.score < b.score) ? 1 : -1);
     for(i = 0; i < highScores.length; i++){
-        console.log(highScores[i].name);
         let newTr = $("<tr>");
         let newTh = $("<th>");
         let scoreTd = $("<td>");
@@ -91,7 +89,6 @@ function submitScore(){
         score: timeLeft.toString(),
     };
     highScores.push(playerScore);
-    console.log(highScores);
     storage.setItem("highScores",JSON.stringify(highScores));
     renderScores();
     location.href = "scores.html";
