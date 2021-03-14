@@ -3,6 +3,7 @@ const timer = $(".time");
 const titleEl = $(".title")
 const startBtn = $(".start-btn");
 const formEl = $(".submit-score");
+const scoresTblEl = $(".high-scores");
 const nameEl = formEl.children().eq(0).children().eq(0);
 const submitBtn = formEl.children().eq(1).children().eq(0);
 const questionEl = $(".question-text");
@@ -33,6 +34,16 @@ let questions = [
         options: ["Object Oriented Programming","Objects On Platform", "On One Pal","Ok Object Programming"],
         answer: "a",
     },
+    {
+        question: "What method can we use to join two strings together?",
+        options: ["string.glue()", "string.stick()","string.concat()","join.string()"],
+        answer: "c",
+    },
+    {
+        question: "What tool can we use to debug and check for errors in the web browser?",
+        options: ["Pen and paper","Inspector", "Vscode","Terminal"],
+        answer: "b",
+    },
 ];
 
 
@@ -58,7 +69,29 @@ function endQuiz() {
     }
 };
 
+function renderScores() {
+    console.log("renderScores");
+    showScoresTbl();
+    let sortedArr = highScores.sort((a, b) => (a.score < b.score) ? 1 : -1);
+    for(i = 0; i < highScores.length; i++){
+        console.log(highScores[i].name);
+        let newTr = $("<tr>");
+        let newTh = $("<th>");
+        let scoreTd = $("<td>");
+        let nameTd = $("<td>");
+        newTh.attr("scope","row");
+        newTh.text((i + 1));
+        scoreTd.text(sortedArr[i].score);
+        nameTd.text(sortedArr[i].name);
+        scoresTblEl.children().eq(1).append(newTr);
+        scoresTblEl.children().eq(1).children().eq(i).append(newTh);
+        scoresTblEl.children().eq(1).children().eq(i).append(scoreTd);
+        scoresTblEl.children().eq(1).children().eq(i).append(nameTd);
+    }
+}
+
 function submitScore(){
+    showScoresTbl();
     let playerScore = {
         name: nameEl.val(),
         score: timeLeft.toString(),
@@ -66,6 +99,7 @@ function submitScore(){
     highScores.push(playerScore);
     console.log(highScores);
     storage.setItem("highScores",JSON.stringify(highScores));
+    renderScores();
 }
 
 function setUp(){
@@ -85,6 +119,14 @@ function setUp(){
     renderQuestion();
 }
 
+function showScoresTbl(){
+    titleEl.hide();
+    questionEl.hide();
+    timer.hide();
+    formEl.hide();
+    scoresTblEl.show();
+}
+
 
 function renderQuestion(){
     if(questionNumber === questions.length){
@@ -96,6 +138,7 @@ function renderQuestion(){
         questionListEl.children().eq(0).text(currentQuestion.options[0]);
         questionListEl.children().eq(1).text(currentQuestion.options[1]);
         questionListEl.children().eq(2).text(currentQuestion.options[2]);
+        questionListEl.children().eq(3).text(currentQuestion.options[3]);
     };
 };
 
@@ -122,3 +165,5 @@ questionListEl.on("click", function(event){
 })
 
 submitBtn.on("click",submitScore);
+
+$("#view-scores").on("click",renderScores);
