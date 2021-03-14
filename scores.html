@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/style.css">
+  <title>JS Quiz!</title>
+</head>
+
+<body>
+
+  <header>
+    <!-- Navbar -->
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link active home" aria-current="page" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="view-scores" href="#">Your Scores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">O Saxon GitHub</a>
+      </li>
+    </ul>
+  </header>
+
+  <!-- Main container -->
+  <div class="mt-5 container">
+
+    <!-- Scores table -->
+    <!-- grab table el.children.eq(1) for body then children.eq(index of sorted array) for row then create rows from array of highscores -->
+    <table class="table high-scores">
+      <thead>
+        <tr>
+          <th scope="col">Rank #</th>
+          <th scope="col">Score</th>
+          <th scope="col">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+
+
+    <!-- End of main container -->
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="./assets/script.js"></script>
+
+</body>
+
+</html>

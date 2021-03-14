@@ -71,7 +71,6 @@ function endQuiz() {
 
 function renderScores() {
     console.log("renderScores");
-    showScoresTbl();
     let sortedArr = highScores.sort((a, b) => (a.score < b.score) ? 1 : -1);
     for(i = 0; i < highScores.length; i++){
         console.log(highScores[i].name);
@@ -91,7 +90,6 @@ function renderScores() {
 }
 
 function submitScore(){
-    showScoresTbl();
     let playerScore = {
         name: nameEl.val(),
         score: timeLeft.toString(),
@@ -100,6 +98,7 @@ function submitScore(){
     console.log(highScores);
     storage.setItem("highScores",JSON.stringify(highScores));
     renderScores();
+    location.href = "scores.html";
 }
 
 function setUp(){
@@ -119,21 +118,6 @@ function setUp(){
     renderQuestion();
 }
 
-function showScoresTbl(){
-    titleEl.hide();
-    questionEl.hide();
-    timer.hide();
-    formEl.hide();
-    scoresTblEl.show();
-    startBtn.hide();
-}
-
-function hideScoresTbl(){
-    scoresTblEl.hide();
-    startBtn.show();
-    titleEl.show();
-
-}
 
 
 function renderQuestion(){
@@ -152,7 +136,7 @@ function renderQuestion(){
 
 
 
-// event listeners
+renderScores();
 
 startBtn.on("click", setUp)
 startBtn.on("click", function(){timer.text(timeLeft + "s remaining");})
@@ -174,8 +158,9 @@ questionListEl.on("click", function(event){
 
 submitBtn.on("click",submitScore);
 
-$("#view-scores").on("click",renderScores);
+$("#view-scores").on("click",function(){
+    location.href = "scores.html";
+});
 $(".home").on("click",function(event){
-    event.preventDefault();
-    location.reload();
+    location.href = "index.html";
 });
