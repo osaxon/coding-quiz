@@ -1,7 +1,5 @@
 # JavaScript Quiz
-> An interactive quiz with 
-
-A short quiz built with HTML, JavaScript and CSS.
+> A short quiz built with HTML, JavaScript and CSS.
 
 ## Link
 
