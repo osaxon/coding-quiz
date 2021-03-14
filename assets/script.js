@@ -61,7 +61,7 @@ function endQuiz() {
         score = timeLeft * 10;
     } else {
         titleEl.children().eq(1).text("Unlucky!!!")
-        titleEl.children().eq(2).text("You ran out of time. Want to try again?");
+        titleEl.children().eq(2).text("You ran out of time. Click the Home button to give it another go");
     }
 };
 
@@ -108,6 +108,7 @@ function setUp(){
       if(timeLeft === 0 || questionNumber == questions.length) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
+        endQuiz();
       }
   
     }, 1000);
