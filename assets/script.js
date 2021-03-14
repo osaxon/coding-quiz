@@ -46,13 +46,9 @@ let questions = [
     },
 ];
 
-
 let questionNumber = 0;
 let currentQuestion = questions[questionNumber];
-
 let highScores = JSON.parse(storage.getItem("highScores")) || [];
-
-
 let timeLeft = 100;
 
 function endQuiz() {
@@ -118,8 +114,6 @@ function setUp(){
     renderQuestion();
 }
 
-
-
 function renderQuestion(){
     if(questionNumber === questions.length){
         endQuiz();
@@ -134,8 +128,6 @@ function renderQuestion(){
     };
 };
 
-
-
 renderScores();
 
 startBtn.on("click", setUp)
@@ -145,13 +137,21 @@ questionListEl.on("click", function(event){
     event.preventDefault();
     event.stopPropagation();
     plAns = event.target.id;
-    activeBtn = $("#"+plAns);
+    let activeBtn = $("#"+plAns);
     if(plAns === currentQuestion.answer){
+        activeBtn.addClass("list-group-item-success")
+        let success = setInterval(function(){
+            activeBtn.removeClass("list-group-item-success")
+        },150);
         questionNumber += 1;
         renderQuestion();
     } else {
+        activeBtn.addClass("list-group-item-danger")
         timeLeft -= 10;
         timer.text((timeLeft) + "s remaining")
+        let danger = setInterval(function(){
+            activeBtn.removeClass("list-group-item-danger");
+        },450);
         renderQuestion();
     }
 })
