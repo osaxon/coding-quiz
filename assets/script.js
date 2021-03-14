@@ -125,6 +125,14 @@ function showScoresTbl(){
     timer.hide();
     formEl.hide();
     scoresTblEl.show();
+    startBtn.hide();
+}
+
+function hideScoresTbl(){
+    scoresTblEl.hide();
+    startBtn.show();
+    titleEl.show();
+
 }
 
 
@@ -167,3 +175,7 @@ questionListEl.on("click", function(event){
 submitBtn.on("click",submitScore);
 
 $("#view-scores").on("click",renderScores);
+$(".home").on("click",function(event){
+    event.preventDefault();
+    location.reload();
+});
