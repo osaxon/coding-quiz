@@ -8,7 +8,7 @@ https://osaxon.github.io/coding-quiz/
 ## Features
 
 The main feature of the quiz is for players to answer a series of questions with a time limit to complete. 
-* The player clicks a start button to begin the quiz and to begin a countdown from 100s
+* The player clicks a start button to begin the quiz and to begin a countdown from 75s
 * Multiple choice questions appear one after another with a new question presented at each correct answeer
 * A wrong answer decucts 10s from the remaining time
 * At the end of the quiz the player submits their name and score and views top scores in a table
